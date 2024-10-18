@@ -24,11 +24,22 @@ function findMarkdownFiles(directory) {
         if (stats.isDirectory()) {
             markdownFiles.push(...findMarkdownFiles(filePath));
         } else if (file.endsWith('.md')) {
-            markdownFiles.push(filePath);
+            convertToHtml(file);
         }
     });
 
     return markdownFiles;
+}
+
+function convertToHtml(filePath) {
+    // Since we're just passing in the
+    const relativeFilePath = `${MD_DIRECTORY}/${filePath}`;
+    const markdown = fs.readFileSync(relativeFilePath, 'utf8');
+    const html = converter.makeHtml(markdown);
+
+    const htmlPath = `${WIKI_DIRECTORY}/${filePath}`;
+
+    console.log(`Would output the html file in ${htmlPath}`)
 }
 
 const markdownFiles = findMarkdownFiles(MD_DIRECTORY);
