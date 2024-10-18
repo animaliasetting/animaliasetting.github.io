@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/animaliasetting/animaliasetting.github.io#readme",
   "dependencies": {
+    "jsdom": "^25.0.1",
     "showdown": "^2.1.0"
   }
 }
