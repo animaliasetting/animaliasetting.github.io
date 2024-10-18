@@ -1,0 +1,25 @@
+{
+  "name": "animaliasetting.github.io",
+  "version": "1.0.0",
+  "description": "A wiki site containing information and lore about the Animalia world. ",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/animaliasetting/animaliasetting.github.io.git"
+  },
+  "keywords": [
+    "animalia",
+    "setting",
+    "furry",
+    "magic"
+  ],
+  "author": "RickyTheRacc",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/animaliasetting/animaliasetting.github.io/issues"
+  },
+  "homepage": "https://github.com/animaliasetting/animaliasetting.github.io#readme",
+  "dependencies": {
+    "showdown": "^2.1.0"
+  }
+}
