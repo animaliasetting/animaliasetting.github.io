@@ -2,7 +2,7 @@
   "name": "animaliasetting.github.io",
   "version": "1.0.0",
   "description": "A wiki site containing information and lore about the Animalia world. ",
-  "main": "index.js",
+  "main": "generate-wiki.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/animaliasetting/animaliasetting.github.io.git"
