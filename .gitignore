@@ -1,10 +1,18 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
 # compiled output
 /dist
 /tmp
 /out-tsc
-wiki/
+
+site/*
+
+!site/js/
+!site/css/
+!site/html/
+!site/img/
+!site/js/*
+!site/css/*
+!site/html/*
+!site/img/*
 
 # Runtime data
 pids
