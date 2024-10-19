@@ -19,6 +19,7 @@ jobs:
 
       - name: Generate Pages
         run: |
+          cd home/runner/work/animaliasetting.github.io/animaliasetting.github.io
           npm install
           node js/generate-wiki.js
 
