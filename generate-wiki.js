@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const { JSDOM } = require('jsdom');
 
-const WIKI_DIRECTORY = './wiki';
-const MD_DIRECTORY = './md';
-const WIKI_ENTRY_FILE = './html/index-template.html';
+const WIKI_DIRECTORY = 'wiki';
+const MD_DIRECTORY = 'md';
+const WIKI_ENTRY_FILE = 'html/index-template.html';
 const INDENT_SIZE = 4;
 
 const converter = new showdown.Converter({
@@ -14,7 +14,24 @@ const converter = new showdown.Converter({
     'underline': true
 });
 
-function createWikiFileStructure(directory) {
+function createWebsite() {
+    createWikiEntries(MD_DIRECTORY);
+    packSiteAssets();
+}
+
+function packSiteAssets() {
+    ["css", "js", "img"].forEach(directory => {
+        const newDirectory = `${WIKI_DIRECTORY}/${directory}`;
+        fs.mkdirSync(newDirectory, { recursive: true });
+
+        fs.readdirSync(directory).forEach(file => {
+            const data = fs.readFileSync(`${directory}/${file}`);
+            fs.writeFileSync(`${newDirectory}/${file}`, data)
+        })
+    })
+}
+
+function createWikiEntries(directory) {
     const files = fs.readdirSync(directory);
 
     files.forEach((file) => {
@@ -28,7 +45,7 @@ function createWikiFileStructure(directory) {
             .replace('.md', '.html');
 
         if (stats.isDirectory()) {
-            createWikiFileStructure(filePath);
+            createWikiEntries(filePath);
         } else if (file.endsWith('.md')) {
             const htmlDir = path.dirname(htmlPath);
             if (!fs.existsSync(htmlDir)) {
@@ -95,7 +112,7 @@ function formatHtml(html) {
     return formatted;
 }
 
-createWikiFileStructure(MD_DIRECTORY);
+createWebsite();
 
 
 
