@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const { JSDOM } = require('jsdom');
 
-const WIKI_DIRECTORY = 'wiki';
+const WIKI_DIRECTORY = 'site';
 const MD_DIRECTORY = 'md';
-const WIKI_ENTRY_FILE = 'html/index-template.html';
+const ENTRY_TEMPLATE = 'site/html/entry-template.html';
 const INDENT_SIZE = 4;
 
 const converter = new showdown.Converter({
@@ -14,64 +14,54 @@ const converter = new showdown.Converter({
     'underline': true
 });
 
-function createWebsite() {
-    createWikiEntries(MD_DIRECTORY);
-    packSiteAssets();
+function createWebsitePages() {
+    const mdFiles = locateMdFiles(MD_DIRECTORY);
+    console.log("Successfully located MD files...")
+
+    mdFiles.forEach(mdFile => {
+        console.log(`Attempting to convert ${mdFile}`)
+
+        const siteFile = mdFile.toLowerCase()
+            .replace(MD_DIRECTORY, WIKI_DIRECTORY)
+            .replaceAll('_', '-')
+            .replace('.md', '.html');
+
+        const siteDir = siteFile.substring(0, siteFile.lastIndexOf('/'))
+
+        if (!fs.existsSync(siteDir)) {
+            fs.mkdirSync(siteDir, { recursive: true });
+        }
+
+        const entryTemplate = fs.readFileSync(ENTRY_TEMPLATE).toString();
+        const document = new JSDOM(entryTemplate).window.document;
+
+        const markdown = fs.readFileSync(mdFile).toString()
+        const parsedHtml = converter.makeHtml(markdown);
+
+        document.querySelector('section#main-content').innerHTML = parsedHtml;
+
+        fs.writeFileSync(siteFile, formatHtml(document.documentElement.outerHTML));
+    });
+
+    console.log("Successfully created website pages!")
 }
 
-function packSiteAssets() {
-    ["css", "js", "img"].forEach(directory => {
-        const newDirectory = `${WIKI_DIRECTORY}/${directory}`;
-        fs.mkdirSync(newDirectory, { recursive: true });
-
-        fs.readdirSync(directory).forEach(file => {
-            const data = fs.readFileSync(`${directory}/${file}`);
-            fs.writeFileSync(`${newDirectory}/${file}`, data)
-        })
-    })
-}
-
-function createWikiEntries(directory) {
+function locateMdFiles(directory) {
     const files = fs.readdirSync(directory);
+    const mdFiles = [];
 
     files.forEach((file) => {
         const filePath = `${directory}/${file}`;
         const stats = fs.lstatSync(filePath);
 
-        const htmlPath = filePath
-            .replace(MD_DIRECTORY, WIKI_DIRECTORY)
-            .replace(file, file.toLowerCase())
-            .replaceAll('_', '-')
-            .replace('.md', '.html');
-
         if (stats.isDirectory()) {
-            createWikiEntries(filePath);
+            mdFiles.push(locateMdFiles(filePath))
         } else if (file.endsWith('.md')) {
-            const htmlDir = path.dirname(htmlPath);
-            if (!fs.existsSync(htmlDir)) {
-                fs.mkdirSync(htmlDir, { recursive: true });
-            }
-
-            // TODO remove later after action is finished
-            const data = parseMarkdown(filePath)
-            fs.writeFileSync(htmlPath, data);
+            mdFiles.push(filePath);
         }
     });
-}
 
-// TODO something in here is adding an empty line between the aside and the body closing tag
-
-function parseMarkdown(file) {
-    const markdown = fs.readFileSync(file).toString()
-    const parsedHtml = converter.makeHtml(markdown);
-
-    const entryTemplate = fs.readFileSync(WIKI_ENTRY_FILE).toString();
-
-    const { window } = new JSDOM(entryTemplate);
-    const document = window.document;
-    document.querySelector('section#entry-text').innerHTML = parsedHtml;
-
-    return formatHtml(document.documentElement.outerHTML)
+    return mdFiles;
 }
 
 function formatHtml(html) {
@@ -112,7 +102,7 @@ function formatHtml(html) {
     return formatted;
 }
 
-createWebsite();
+createWebsitePages();
 
 
 

@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --primary: rgb(255, 255, 255);
+    --accent: rgb(194, 194, 194);
+    --font: rgb(0, 0, 0);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: "Archivo", sans-serif;
+    background-color: var(--primary);
+}
+
+/* Base Elements */
+
+p {
+    font-size: 110%;
+    color: var(--font);
+    padding-top: 10px;
+}
+
+h1 {
+    color: var(--font);
+    font-weight: 600;
+    font-size: 250%;
+    padding-top: 20px;
+}
+
+h2 {
+    color: var(--font);
+    font-weight: 500;
+    font-size: 150%;
+    padding-top: 20px;
+}

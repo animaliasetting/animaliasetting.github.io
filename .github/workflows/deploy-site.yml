@@ -26,7 +26,7 @@ jobs:
       - name: Upload Generated Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: wiki/
+          path: site/
 
   deploy:
     needs: build
