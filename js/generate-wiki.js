@@ -4,9 +4,9 @@ const { JSDOM } = require('jsdom');
 
 const isGithubActions = process.env.GITHUB_ACTIONS === 'true';
 
-const WIKI_DIRECTORY = isGithubActions ? './wiki' : '../wiki';
-const MD_DIRECTORY = isGithubActions ? './md' : '../md';
-const WIKI_ENTRY_FILE = isGithubActions ? './html/index.html' : '../html/index.html';
+const WIKI_DIRECTORY = isGithubActions ? 'wiki' : '../wiki';
+const MD_DIRECTORY = isGithubActions ? 'md' : '../md';
+const WIKI_ENTRY_FILE = isGithubActions ? 'html/index.html' : '../html/index.html';
 const INDENT_SIZE = 4;
 
 const converter = new showdown.Converter({
