@@ -1,5 +1,5 @@
 # Animalia
-## A free-to-use setting by LustyLamb/LambSprout
+*A free-to-use setting by LustyLamb/LambSprout*
 
 A world forever changed by arcane warfare. The majority of the world rendered 
 uninhabitable by humanoids. Animals made sapient by arcane influence. The remaining 
