@@ -1,13 +1,10 @@
 const showdown = require('showdown');
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
-const path = require('path')
 
-const isGithubActions = process.env.GITHUB_ACTIONS === 'true';
-
-const WIKI_DIRECTORY = isGithubActions ? './wiki' : '../wiki';
-const MD_DIRECTORY = isGithubActions ? './md' : '../md';
-const WIKI_ENTRY_FILE = isGithubActions ? './html/index.html' : '../html/index.html';
+const WIKI_DIRECTORY = './wiki';
+const MD_DIRECTORY = './md';
+const WIKI_ENTRY_FILE = './html/index.html';
 const INDENT_SIZE = 4;
 
 const converter = new showdown.Converter({
@@ -92,38 +89,7 @@ function formatHtml(html) {
     return formatted;
 }
 
-// createWikiFileStructure(MD_DIRECTORY);
-
-const ignoredDirectories = [
-    ".git",
-    "node_modules"
-]
-
-function listFilesRecursively(dir) {
-    // Read the contents of the directory
-    const files = fs.readdirSync(dir);
-
-    // Loop through the contents
-    files.forEach(file => {
-        // Get the full path of the file/directory
-        const fullPath = path.join(dir, file);
-
-        // Check if it's a directory
-        if (fs.lstatSync(fullPath).isDirectory()) {
-            console.log(`Directory: ${fullPath}`);
-            if (ignoredDirectories.includes(fullPath)) return;
-            // Recurse into the directory
-            listFilesRecursively(fullPath);
-        } else {
-            // It's a file, so just print its path
-            console.log(`File: ${fullPath}`);
-        }
-    });
-}
-
-// Start by printing the current directory and calling the function
-const currentDirectory = process.cwd();
-listFilesRecursively("./");
+createWikiFileStructure(MD_DIRECTORY);
 
 
 
