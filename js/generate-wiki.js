@@ -5,7 +5,7 @@ const { JSDOM } = require('jsdom');
 
 const WIKI_DIRECTORY = './wiki';
 const MD_DIRECTORY = './md';
-const WIKI_ENTRY_FILE = './html/index.html';
+const WIKI_ENTRY_FILE = './html/index-template.html';
 const INDENT_SIZE = 4;
 
 const converter = new showdown.Converter({
@@ -42,6 +42,8 @@ function createWikiFileStructure(directory) {
     });
 }
 
+// TODO something in here is adding an empty line between the aside and the body closing tag
+
 function parseMarkdown(file) {
     const markdown = fs.readFileSync(file).toString()
     const parsedHtml = converter.makeHtml(markdown);
@@ -50,7 +52,7 @@ function parseMarkdown(file) {
 
     const { window } = new JSDOM(entryTemplate);
     const document = window.document;
-    document.body.innerHTML = parsedHtml;
+    document.querySelector('section#entry-text').innerHTML = parsedHtml;
 
     return formatHtml(document.documentElement.outerHTML)
 }
@@ -73,6 +75,7 @@ function formatHtml(html) {
 
         let isSelfClosing = strippedLine.match(/^<([a-z][a-z0-9]*)>.*<\/\1>$/) != null;
         if (!isSelfClosing) isSelfClosing = strippedLine.match(/^<meta/);
+        if (!isSelfClosing) isSelfClosing = strippedLine.match(/^<link/);
 
         if (isSelfClosing) {
             const indent = ' '.repeat(INDENT_SIZE * indentLevel);
