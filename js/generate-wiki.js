@@ -94,6 +94,11 @@ function formatHtml(html) {
 
 // createWikiFileStructure(MD_DIRECTORY);
 
+const ignoredDirectories = [
+    ".git",
+    "node_modules"
+]
+
 function listFilesRecursively(dir) {
     // Read the contents of the directory
     const files = fs.readdirSync(dir);
@@ -106,6 +111,7 @@ function listFilesRecursively(dir) {
         // Check if it's a directory
         if (fs.lstatSync(fullPath).isDirectory()) {
             console.log(`Directory: ${fullPath}`);
+            if (ignoredDirectories.includes(fullPath)) return;
             // Recurse into the directory
             listFilesRecursively(fullPath);
         } else {
@@ -118,5 +124,7 @@ function listFilesRecursively(dir) {
 // Start by printing the current directory and calling the function
 const currentDirectory = process.cwd();
 listFilesRecursively("./");
+
+
 
 
