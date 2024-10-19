@@ -4,7 +4,7 @@ const { JSDOM } = require('jsdom');
 
 const WIKI_DIRECTORY = '../wiki';
 const MD_DIRECTORY = '../md';
-const WIKI_ENTRY_FILE = 'html/index.html' : '../html/index.html';
+const WIKI_ENTRY_FILE = '../html/index.html';
 const INDENT_SIZE = 4;
 
 const converter = new showdown.Converter({
