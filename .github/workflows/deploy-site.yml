@@ -19,28 +19,27 @@ jobs:
 
       - name: Generate Pages
         run: |
-          cd home/runner/work/animaliasetting.github.io/animaliasetting.github.io
           npm install
           node js/generate-wiki.js
 
-      - name: Upload Generated Pages
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: wiki/
+#      - name: Upload Generated Pages
+#        uses: actions/upload-pages-artifact@v3
+#        with:
+#          path: wiki/
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    permissions:
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+#  deploy:
+#    needs: build
+#    runs-on: ubuntu-latest
+#
+#    permissions:
+#      pages: write
+#      id-token: write
+#
+#    environment:
+#      name: github-pages
+#      url: ${{ steps.deployment.outputs.page_url }}
+#
+#    steps:
+#      - name: Deploy to GitHub Pages
+#        id: deployment
+#        uses: actions/deploy-pages@v4

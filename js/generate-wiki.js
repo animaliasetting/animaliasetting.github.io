@@ -89,6 +89,32 @@ function formatHtml(html) {
     return formatted;
 }
 
-createWikiFileStructure(MD_DIRECTORY);
+// createWikiFileStructure(MD_DIRECTORY);
+
+function listFilesRecursively(dir) {
+    // Read the contents of the directory
+    const files = fs.readdirSync(dir);
+
+    // Loop through the contents
+    files.forEach(file => {
+        // Get the full path of the file/directory
+        const fullPath = path.join(dir, file);
+
+        // Check if it's a directory
+        if (fs.lstatSync(fullPath).isDirectory()) {
+            console.log(`Directory: ${fullPath}`);
+            // Recurse into the directory
+            listFilesRecursively(fullPath);
+        } else {
+            // It's a file, so just print its path
+            console.log(`File: ${fullPath}`);
+        }
+    });
+}
+
+// Start by printing the current directory and calling the function
+const currentDirectory = process.cwd();
+console.log(`Current Directory: ${currentDirectory}`);
+listFilesRecursively(currentDirectory);
 
 
