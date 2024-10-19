@@ -1,5 +1,6 @@
 const showdown = require('showdown');
 const fs = require('fs');
+const path = require('path');
 const { JSDOM } = require('jsdom');
 
 const WIKI_DIRECTORY = './wiki';
@@ -27,11 +28,13 @@ function createWikiFileStructure(directory) {
             .replace('.md', '.html');
 
         if (stats.isDirectory()) {
-            if (!fs.existsSync(htmlPath)) {
-                fs.mkdirSync(htmlPath, { recursive: true });
-            }
             createWikiFileStructure(filePath);
         } else if (file.endsWith('.md')) {
+            const htmlDir = path.dirname(htmlPath);
+            if (!fs.existsSync(htmlDir)) {
+                fs.mkdirSync(htmlDir, { recursive: true });
+            }
+
             // TODO remove later after action is finished
             const data = parseMarkdown(filePath)
             fs.writeFileSync(htmlPath, data);
