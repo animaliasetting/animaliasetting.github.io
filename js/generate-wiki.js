@@ -115,7 +115,6 @@ function listFilesRecursively(dir) {
 
 // Start by printing the current directory and calling the function
 const currentDirectory = process.cwd();
-console.log(`Current Directory: ${currentDirectory}`);
-listFilesRecursively(currentDirectory);
+listFilesRecursively("./");
 
 
