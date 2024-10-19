@@ -1,6 +1,7 @@
 const showdown = require('showdown');
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
+const path = require('path')
 
 const WIKI_DIRECTORY = '../wiki';
 const MD_DIRECTORY = '../md';
