@@ -39,3 +39,8 @@ h2 {
     font-size: 150%;
     padding-top: 20px;
 }
+
+button {
+    height: 40px;
+    width: 40px;
+}

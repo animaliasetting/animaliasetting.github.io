@@ -1,17 +1,14 @@
 body {
     display: grid;
-    grid-template-rows: 1fr 8fr;
+    grid-template-rows: 1fr 6fr;
     grid-template-columns: 100%;
 }
 
 header {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 10px;
-}
-
-header {
     border-bottom: 2px solid var(--accent);
+    grid-column: 1 / -1;
+    text-align: end;
+    padding: 10px;
 }
 
 main {
