@@ -2,7 +2,7 @@
 
 :root {
     --primary: rgb(255, 255, 255);
-    --accent: rgb(194, 194, 194);
+    --accent: rgb(200, 200, 200);
     --font: rgb(0, 0, 0);
 }
 
@@ -21,22 +21,22 @@ html, body {
 /* Base Elements */
 
 p {
-    font-size: 110%;
     color: var(--font);
+    font-size: 110%;
     padding-top: 10px;
 }
 
 h1 {
     color: var(--font);
-    font-weight: 600;
     font-size: 250%;
+    font-weight: 600;
     padding-top: 20px;
 }
 
 h2 {
     color: var(--font);
-    font-weight: 500;
     font-size: 150%;
+    font-weight: 500;
     padding-top: 20px;
 }
 

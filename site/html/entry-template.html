@@ -16,12 +16,14 @@
         <meta property="og:image" content="https://www.animaliasetting.github.io/img/icon-1024.png">
         <meta content="#FFFFFF" data-react-helmet="true" name="theme-color">
 
-        <link rel="stylesheet" href="../css/desktop.css">
-        <link rel="stylesheet" href="../css/mobile.css">
-        <link rel="stylesheet" href="../css/common.css">
-        <script src="../js/layout.js"></script>
+        <link rel="preload" as="style" href="../css/desktop.css" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="preload" as="style" href="../css/mobile.css" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="preload" as="style" href="../css/common.css" onload="this.onload=null;this.rel='stylesheet'">
+
+        <script src="../js/themes.js" type="module"></script>
+        <script src="../js/persist.js" type="module"></script>
     </head>
-    <body>
+    <body style="visibility: hidden">
         <header>
             <button type="button" id="light-mode-toggle">Light Theme</button>
         </header>
@@ -30,7 +32,7 @@
 
             </section>
             <section id="main-content">
-
+                <p>Guh</p>
             </section>
             <section id="right-sidebar">
 
