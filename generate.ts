@@ -45,6 +45,10 @@ function generateSite(): void {
     fs.cpSync(`${SRC_DIRECTORY}css`, `${SITE_DIRECTORY}css`, { recursive: true });
     fs.cpSync(`${SRC_DIRECTORY}img`, `${SITE_DIRECTORY}img`, { recursive: true });
 
+    // JS is special since we're compiling from typescript, so we only
+    // want to include the compiled javascript
+
+    fs.mkdirSync(`${SITE_DIRECTORY}js`, { recursive: true });
     fs.readdirSync(`${SRC_DIRECTORY}js`).forEach(file => {
         if (file.endsWith('.js')) {
             const srcPath = path.join(SRC_DIRECTORY, 'js', file);
@@ -92,8 +96,9 @@ function addTableOfContents(document: Document): void {
 
     if (sidebar && headers) {
         headers.forEach(element => {
-            const sidebarLink: HTMLParagraphElement = document.createElement('p');
-            sidebarLink.textContent = element.textContent ?? 'ERROR - SHOW MACHIE';
+            const sidebarLink: HTMLAnchorElement = document.createElement('a');
+            sidebarLink.textContent = element.textContent;
+            sidebarLink.setAttribute('href', `#${element.id}`)
 
             sidebar.appendChild(sidebarLink);
         });
