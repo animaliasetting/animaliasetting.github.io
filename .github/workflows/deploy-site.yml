@@ -21,7 +21,8 @@ jobs:
       - name: Generate Pages
         run: |
           npm install
-          node generate-wiki.js
+          npx tsc
+          node generate.js
 
       - name: Upload Generated Pages
         uses: actions/upload-pages-artifact@v3
