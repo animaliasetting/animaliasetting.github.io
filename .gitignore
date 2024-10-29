@@ -3,16 +3,8 @@
 /tmp
 /out-tsc
 
+site/
 site/*
-
-!site/js/
-!site/css/
-!site/html/
-!site/img/
-!site/js/*
-!site/css/*
-!site/html/*
-!site/img/*
 
 # Runtime data
 pids

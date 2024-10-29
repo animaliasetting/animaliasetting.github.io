@@ -8,20 +8,20 @@ export class WikiFile {
     readonly categories: string[];
 
     constructor(path: string) {
-        this.fileName = path
+        this.fileName = path.toLowerCase()
             .slice(path.lastIndexOf('/') + 1)
-            .toLowerCase()
             .replace('.md', '.html');
 
         this.mdFilePath = path;
 
         this.htmlFilePath = path.toLowerCase()
-            .slice(0, path.lastIndexOf('/'))
+            .slice(0, path.lastIndexOf('/') + 1)
             .replaceAll(MD_DIRECTORY, SITE_DIRECTORY)
             .replaceAll('_', '-');
 
-        this.categories = path.slice(5, path.lastIndexOf('/')).trim().split('/');
-        console.log(this.categories)
+        this.categories = this.htmlFilePath
+            .slice(this.htmlFilePath.indexOf('/'))
+            .split('/').filter(Boolean);
     }
 
     createDirectoryIfNeeded() {
