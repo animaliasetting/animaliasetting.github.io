@@ -10,7 +10,7 @@ export function setCookie(name, value, days = 999) {
 }
 
 export function getCookie(name) {
-    name += '=';
+    name = `${name}=`;
 
     for (const component of document.cookie.split(';')) {
         const trimmed = component.trim();

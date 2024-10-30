@@ -14,7 +14,7 @@ window.addEventListener('load', () => {
     const root = document.querySelector(':root');
     const button = document.querySelector('button#light-mode-toggle');
 
-    currentTheme = getCookie('currentTheme') ?? themes[currentIndex];
+    currentTheme = getCookie('currentTheme') ?? themeKeys[currentIndex];
     setCookie('currentTheme', currentTheme);
     updateTheme(currentTheme);
 
