@@ -1,6 +1,7 @@
 {
   "name": "animaliasetting.github.io",
   "version": "1.0.0",
+  "type": "module",
   "description": "A wiki site containing information and lore about the Animalia world.",
   "main": "generate.js",
   "repository": {
@@ -22,11 +23,5 @@
   "dependencies": {
     "jsdom": "^25.0.1",
     "showdown": "^2.1.0"
-  },
-  "devDependencies": {
-    "@types/jsdom": "^21.1.7",
-    "@types/node": "^22.8.1",
-    "@types/showdown": "^2.0.6",
-    "typescript": "^5.6.3"
   }
 }
