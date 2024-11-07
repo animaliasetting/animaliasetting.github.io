@@ -67,7 +67,7 @@ function setPageTitle(document, wikiFile) {
     const embedTitleElement = document.querySelector('meta[property="og:title"]');
 
     titleElement.textContent = wikiFile.title;
-    embedTitleElement.textContent = wikiFile.title;
+    embedTitleElement.setAttribute('content', wikiFile.title);
 }
 
 function addParsedMarkdown(document, wikiFile) {
@@ -124,7 +124,7 @@ function addSuggestedEntries(document, wikiFile, wikiFiles) {
 
     otherFiles.forEach(file => {
         const sitePath = file.htmlFilePath.slice(file.htmlFilePath.indexOf('/') + 1);
-        const link = `https://www.animaliasetting.github.io/${sitePath}${file.fileName}`
+        const link = `https://animaliasetting.github.io/${sitePath}${file.fileName}`
 
         const listItem = document.createElement('li');
         const anchor = document.createElement('a');
