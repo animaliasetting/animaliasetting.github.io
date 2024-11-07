@@ -124,7 +124,8 @@ function addSuggestedEntries(document, wikiFile, wikiFiles) {
 
     otherFiles.forEach(file => {
         const sitePath = file.htmlFilePath.slice(file.htmlFilePath.indexOf('/') + 1);
-        const link = `https://animaliasetting.github.io/${sitePath}${file.fileName}`
+        let link = `https://animaliasetting.github.io/${sitePath}${file.fileName}`
+        if (file.fileName === 'index.html') link = link.slice(0, link.lastIndexOf('/') + 1);
 
         const listItem = document.createElement('li');
         const anchor = document.createElement('a');
