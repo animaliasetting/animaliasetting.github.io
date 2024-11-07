@@ -26,9 +26,10 @@ function generateSite() {
         const entryTemplate = fs.readFileSync(config.ENTRY_TEMPLATE).toString();
         const document = new JSDOM(entryTemplate).window.document;
 
+        setPageTitle(document, wikiFile);
         addParsedMarkdown(document, wikiFile);
         addTableOfContents(document);
-        addSuggestedEntries(document, wikiFile);
+        addSuggestedEntries(document, wikiFile, wikiFiles);
 
         let formattedHtml = correctStructure(document, wikiFile);
         // Interacting with the DOM screws up whitespace when adding elements, so if
@@ -59,6 +60,14 @@ function locateMDFiles(directory) {
     });
 
     return wikiFiles;
+}
+
+function setPageTitle(document, wikiFile) {
+    const titleElement = document.querySelector('title');
+    const embedTitleElement = document.querySelector('meta[property="og:title"]');
+
+    titleElement.textContent = wikiFile.title;
+    embedTitleElement.textContent = wikiFile.title;
 }
 
 function addParsedMarkdown(document, wikiFile) {
@@ -96,8 +105,36 @@ function addTableOfContents(document) {
     }
 }
 
-function addSuggestedEntries(document, wikiFile) {
-  // TODO document why this function 'addSuggestedEntries' is empty
+function addSuggestedEntries(document, wikiFile, wikiFiles) {
+    const sidebar = document.querySelector('ul#suggested-entries');
+
+    if (!sidebar) {
+        console.error('Failed to find sidebar section.');
+        process.exit(1);
+    }
+
+    const otherFiles = wikiFiles.filter(file => file.title !== wikiFile.title);
+
+    otherFiles.sort((file1, file2) => {
+        const commonTags1 = file1.categories.filter(tag => wikiFile.categories.includes(tag)).length;
+        const commonTags2 = file2.categories.filter(tag => wikiFile.categories.includes(tag)).length;
+
+        return commonTags2 - commonTags1;
+    });
+
+    otherFiles.forEach(file => {
+        const sitePath = file.htmlFilePath.slice(file.htmlFilePath.indexOf('/') + 1);
+        const link = `https://www.animaliasetting.github.io/${sitePath}${file.fileName}`
+
+        const listItem = document.createElement('li');
+        const anchor = document.createElement('a');
+
+        anchor.textContent = file.title;
+        anchor.setAttribute('href', link);
+        listItem.appendChild(anchor);
+
+        sidebar.appendChild(listItem);
+    })
 }
 
 function correctStructure(document, wikiFile) {

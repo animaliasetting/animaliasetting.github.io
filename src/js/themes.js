@@ -1,6 +1,6 @@
 import { getCookie, setCookie } from "./persist.js";
 
-let currentTheme;
+
 const themes = {
     'dark': ['#555555', '#323232', '#FFFFFF'],
     'light': ['#FFFFFF', '#C8C8C8', '#000000'],
@@ -14,7 +14,13 @@ window.addEventListener('load', () => {
     const root = document.querySelector(':root');
     const button = document.querySelector('button#light-mode-toggle');
 
-    currentTheme = getCookie('currentTheme') ?? themeKeys[currentIndex];
+    let currentTheme = getCookie('currentTheme');
+    if (!themeKeys.includes(currentTheme)) {
+        currentTheme = themeKeys[currentIndex];
+    } else {
+        currentIndex = themeKeys.indexOf(currentTheme);
+    }
+
     setCookie('currentTheme', currentTheme);
     updateTheme(currentTheme);
 

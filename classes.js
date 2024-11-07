@@ -17,6 +17,12 @@ export class WikiFile {
         this.categories = this.htmlFilePath
             .slice(this.htmlFilePath.indexOf('/'))
             .split('/').filter(Boolean);
+
+        this.title = this.fileName
+            .replace('.html', '')
+            .replace('_', ' ')
+            .replace(/\b\w/g, l => l.toUpperCase());
+        if (this.title === "Index") this.title = `${this.title} - ${this.categories.pop()}`
     }
 
     createDirectoryIfNeeded() {

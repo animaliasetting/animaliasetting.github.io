@@ -2,11 +2,12 @@ const DAY_IN_MS = 24 * 60 * 60 * 1000;
 
 export function setCookie(name, value, days = 999) {
     const date = new Date();
-
     date.setTime(date.getTime() + (days * DAY_IN_MS));
-    let expires = `expires=${date.toUTCString()}`
 
-    document.cookie = `${name}=${value};expires=${expires};path=/;samesite=lax;`;
+    const expires = `expires=${date.toUTCString()}`
+    const secure = location.protocol === 'https:' ? 'secure' : '';
+
+    document.cookie = `${name}=${value};expires=${expires};path=/;samesite=lax;${secure}`;
 }
 
 export function getCookie(name) {
