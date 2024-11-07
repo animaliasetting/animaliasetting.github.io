@@ -16,13 +16,18 @@ export class WikiFile {
 
         this.categories = this.htmlFilePath
             .slice(this.htmlFilePath.indexOf('/'))
-            .split('/').filter(Boolean);
+            .split('/')
+            .filter(str => str !== '');
 
         this.title = this.fileName
             .replace('.html', '')
             .replace('_', ' ')
             .replace(/\b\w/g, l => l.toUpperCase());
-        if (this.title === "Index") this.title = `${this.title} - ${this.categories.pop()}`
+        if (this.title === "Index") this.title = `${this.title} - ${this.categories.at(-1)}`
+
+        console.log(this.title)
+        console.log(this.categories)
+        console.log();
     }
 
     createDirectoryIfNeeded() {
