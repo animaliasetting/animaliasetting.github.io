@@ -23,11 +23,11 @@ export class WikiFile {
             .replace('.html', '')
             .replace('_', ' ')
             .replace(/\b\w/g, l => l.toUpperCase());
-        if (this.title === "Index") this.title = `${this.title} - ${this.categories.at(-1)}`
+        if (this.title === "Index") {
+            const indexTag = this.categories.at(-1);
 
-        console.log(this.title)
-        console.log(this.categories)
-        console.log();
+            this.title = `${this.title}${indexTag ? ` - ${indexTag}` : ''}`;
+        }
     }
 
     createDirectoryIfNeeded() {
